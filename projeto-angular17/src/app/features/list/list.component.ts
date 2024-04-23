@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-list',
@@ -8,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrl: './list.component.css'
 })
 export class ListComponent {
+  products: any[] = []
 
+  httpClient = inject(HttpClient)
+
+  ngOnInit() {
+    this.httpClient.get<any>('/product').subscribe((products) => {
+      this.products = products
+    })
+  }
 }
